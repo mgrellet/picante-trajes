@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>rent</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">rent</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+    <form (ngSubmit)="submitForm()">
+      <ion-item>
+        <ion-label>DNI</ion-label>
+        <ion-input type="text" [(ngModel)]="formData.dni" name="dni" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Nombre</ion-label>
+        <ion-input type="text" [(ngModel)]="formData.name" name="name" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input type="email" [(ngModel)]="formData.email" name="email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Telefono</ion-label>
+        <ion-input type="tel" [(ngModel)]="formData.phone" name="phone" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Domicilio</ion-label>
+        <ion-input type="text" [(ngModel)]="formData.address" name="address" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Fecha de reserva</ion-label>
+        <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" [(ngModel)]="formData.reservationDate"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Un</ion-label>
+        <ion-input type="text" [(ngModel)]="formData.type" name="type" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Talle</ion-label>
+        <ion-select [(ngModel)]="formData.size">
+          <ion-select-option *ngFor="let size of suitSizes" [value]="size">
+            {{ size }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button expand="full" type="submit">Submit</ion-button>
+    </form>
+  </ion-content>
+
