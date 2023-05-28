@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>rent</ion-title>
+    <ion-title>Marquez</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -14,52 +14,128 @@
     </ion-toolbar>
   </ion-header>
 
-    <form (ngSubmit)="submitForm()">
-      <ion-item>
-        <ion-label>DNI</ion-label>
-        <ion-input type="text" [(ngModel)]="formData.dni" name="dni" required></ion-input>
-      </ion-item>
+  <form [formGroup]="rentForm" (ngSubmit)="submitForm()">
 
-      <ion-item>
-        <ion-label>Nombre</ion-label>
-        <ion-input type="text" [(ngModel)]="formData.name" name="name" required></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-input label="DNI" labelPlacement="floating" type="text" formControlName="dni" name="dni"
+                 required></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Email</ion-label>
-        <ion-input type="email" [(ngModel)]="formData.email" name="email" required></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-input label="Nombre" labelPlacement="floating" type="text" formControlName="name" name="name"
+                 required></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Telefono</ion-label>
-        <ion-input type="tel" [(ngModel)]="formData.phone" name="phone" required></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-input label="Email" labelPlacement="floating" type="email" formControlName="email" name="email"
+                 required></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Domicilio</ion-label>
-        <ion-input type="text" [(ngModel)]="formData.address" name="address" required></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-input label="Telefono" labelPlacement="floating" type="tel" formControlName="phone" name="phone"
+                 required></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Fecha de reserva</ion-label>
-        <ion-datetime presentation="date" displayFormat="DD/MM/YYYY" [(ngModel)]="formData.reservationDate"></ion-datetime>
-      </ion-item>
+    <ion-item>
+      <ion-input label="Domicilio" labelPlacement="floating" type="text" formControlName="address" name="address"
+                 required></ion-input>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Un</ion-label>
-        <ion-input type="text" [(ngModel)]="formData.type" name="type" required></ion-input>
-      </ion-item>
+    <ion-item>
+      <ion-datetime label="Fecha de reserva" labelPlacement="floating" presentation="date" displayFormat="DD/MM/YYYY"
+                    formControlName="reservationDate">
+        <span slot="title">Fecha de reserva</span>
+      </ion-datetime>
+    </ion-item>
 
-      <ion-item>
-        <ion-label>Talle</ion-label>
-        <ion-select [(ngModel)]="formData.size">
-          <ion-select-option *ngFor="let size of suitSizes" [value]="size">
-            {{ size }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
+    <ion-item>
+      <ion-input label="Un" labelPlacement="floating" type="text" formControlName="type" name="type"
+                 required></ion-input>
+    </ion-item>
 
-      <ion-button expand="full" type="submit">Submit</ion-button>
-    </form>
-  </ion-content>
+    <ion-item>
+      <ion-select label="Talle" labelPlacement="floating" formControlName="size">
+        <ion-select-option *ngFor="let size of suitSizes" [value]="size">
+          {{ size }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Modelo" labelPlacement="floating" type="text" formControlName="model" name="type"
+                 required="true"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Color" labelPlacement="floating" formControlName="color">
+        <ion-select-option *ngFor="let color of suitColors" [value]="color">
+          {{ color }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-checkbox labelPlacement="start" formControlName="shirt">Camisa</ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-checkbox labelPlacement="start" formControlName="tie">Corbata</ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-checkbox labelPlacement="start" formControlName="vest">Chaleco</ion-checkbox>
+    </ion-item>
+
+    <br>
+    <ion-item>
+      <ion-datetime label="Fecha de prueba" labelPlacement="floating" presentation="date" displayFormat="DD/MM/YYYY"
+                    formControlName="fittingDate">
+        <span slot="title">Fecha de prueba</span>
+      </ion-datetime>
+    </ion-item>
+
+    <br>
+    <ion-item>
+      <ion-datetime label="Fecha de entrega" labelPlacement="floating" presentation="date" displayFormat="DD/MM/YYYY"
+                    formControlName="deliveryDate">
+        <span slot="title">Fecha de entrega</span>
+      </ion-datetime>
+    </ion-item>
+
+    <br>
+    <ion-item>
+      <ion-datetime label="Fecha de devolucion" labelPlacement="floating" presentation="date" displayFormat="DD/MM/YYYY"
+                    formControlName="returnDate">
+        <span slot="title">Fecha de devolucion</span>
+      </ion-datetime>
+    </ion-item>
+
+    <br>
+    <ion-item>
+      <ion-input label="Precio total" labelPlacement="floating" type="text" formControlName="price" name="type"
+                 required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Anticipo" labelPlacement="floating" type="text" formControlName="advancePayment" name="type"
+                 required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Saldo" labelPlacement="floating" type="text" formControlName="balance" name="type"
+                 required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Notas" labelPlacement="floating" type="text" formControlName="notes" name="type"
+                 required></ion-input>
+    </ion-item>
+    <ion-button
+      expand="block"
+      type="submit"
+    >
+      Submit
+    </ion-button>
+  </form>
+</ion-content>
 
