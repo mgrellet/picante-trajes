@@ -16,12 +16,8 @@ const routes: Routes = [
     loadChildren: () => import('./pages/rent/rent.module').then(m => m.RentPageModule)
   },
   {
-    path: 'weekly',
-    loadChildren: () => import('./pages/weekly/weekly.module').then(m => m.WeeklyPageModule)
-  },
-  {
     path: 'historical',
-    loadChildren: () => import('./pages/historical/historical.module').then(m => m.HistoricalPageModule)
+    loadChildren: () => import('./pages/historical/historical.module').then( m => m.HistoricalPageModule)
   },
 ];
 
