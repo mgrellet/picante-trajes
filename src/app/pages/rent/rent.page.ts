@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {RentService} from "../../services/rent.service";
 
 
 @Component({
@@ -11,8 +12,8 @@ export class RentPage implements OnInit {
 
   rentForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    const defaultDate = new Date(); // Replace with your desired default date
+  constructor(private formBuilder: FormBuilder, private service: RentService) {
+    const defaultDate = new Date();
 
     this.rentForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -49,10 +50,10 @@ export class RentPage implements OnInit {
     'Gris', 'Gris topo', 'Negro', 'Azul francia', 'Azul oscuro', 'Blanco', 'Violeta'
   ]
   submitForm() {
-    console.log(this.rentForm.value);
+    this.service.addRent(this.rentForm.value);
+
     this.printInvalidElements();
     if (this.rentForm.valid) {
-      console.log(this.rentForm.value);
       this.rentForm.reset();
     }
   }
