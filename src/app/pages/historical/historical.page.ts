@@ -1,5 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {RentService} from "../../services/rent.service";
+import {Rent} from "../../interfaces/rent";
 
 @Component({
   selector: 'app-historical',
@@ -8,8 +9,8 @@ import {RentService} from "../../services/rent.service";
 })
 export class HistoricalPage implements OnInit {
 
-  items: any[] = [];
-  filteredItems: any[]= [];
+  items: Rent[] = [];
+  filteredItems: Rent[]= [];
 
 
   constructor(private service: RentService, private cd: ChangeDetectorRef) {
@@ -25,7 +26,7 @@ export class HistoricalPage implements OnInit {
   }
 
   // @ts-ignore
-  searchQuery: any;
+  searchQuery: string;
   // @ts-ignore
   openDetails(id) {
     console.log(id);

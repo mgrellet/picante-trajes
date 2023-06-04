@@ -7,7 +7,7 @@ export interface Rent {
   phone: number;
   address: string;
   //reservation info
-  reservationDate: Date;
+  reservationDate: Date; // Date to use as filter
   deliveryDate: Date;
   returnDate: Date;
   fittingDate: Date;

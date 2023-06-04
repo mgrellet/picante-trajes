@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'historical',
     loadChildren: () => import('./pages/historical/historical.module').then( m => m.HistoricalPageModule)
+  },  {
+    path: 'weekly',
+    loadChildren: () => import('./pages/weekly/weekly.module').then( m => m.WeeklyPageModule)
   },
+
 ];
 
 @NgModule({
