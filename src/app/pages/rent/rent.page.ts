@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RentService} from "../../services/rent.service";
+import {Rent} from "../../interfaces/rent";
 
 
 @Component({
@@ -50,7 +51,31 @@ export class RentPage implements OnInit {
     'Gris', 'Gris topo', 'Negro', 'Azul francia', 'Azul oscuro', 'Blanco', 'Violeta'
   ]
   submitForm() {
-    this.service.addRent(this.rentForm.value);
+    const rent: Rent = {
+      address: this.rentForm.get('address')?.value,
+      advancePayment: this.rentForm.get('advancePayment')?.value,
+      balance: this.rentForm.get('balance')?.value,
+      color: this.rentForm.get('color')?.value,
+      dni: this.rentForm.get('dni')?.value,
+      creationDate: new Date(),
+      deliveryDate: new Date(this.rentForm.get('deliveryDate')?.value),
+      email: this.rentForm.get('email')?.value,
+      fittingDate: new Date(this.rentForm.get('fittingDate')?.value),
+      model: this.rentForm.get('model')?.value,
+      name: this.rentForm.get('name')?.value,
+      phone: this.rentForm.get('phone')?.value,
+      price: this.rentForm.get('price')?.value,
+      reservationDate: new Date(this.rentForm.get('reservationDate')?.value),
+      returnDate: new Date(this.rentForm.get('returnDate')?.value),
+      shirt: this.rentForm.get('shirt')?.value,
+      size: this.rentForm.get('size')?.value,
+      tie: this.rentForm.get('tie')?.value,
+      type: this.rentForm.get('type')?.value,
+      vest: this.rentForm.get('vest')?.value,
+    }
+    console.log(rent);
+
+    this.service.addRent(rent);
 
     this.printInvalidElements();
     if (this.rentForm.valid) {
