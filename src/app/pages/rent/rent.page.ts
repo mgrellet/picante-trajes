@@ -51,7 +51,7 @@ export class RentPage implements OnInit {
     'Gris', 'Gris topo', 'Negro', 'Azul francia', 'Azul oscuro', 'Blanco', 'Violeta'
   ]
   submitForm() {
-    const rent: Rent = {
+    /*const rent: Rent = {
       address: this.rentForm.get('address')?.value,
       advancePayment: this.rentForm.get('advancePayment')?.value,
       balance: this.rentForm.get('balance')?.value,
@@ -73,9 +73,8 @@ export class RentPage implements OnInit {
       type: this.rentForm.get('type')?.value,
       vest: this.rentForm.get('vest')?.value,
     }
-    console.log(rent);
-
-    this.service.addRent(rent);
+*/
+    this.service.createRent(this.rentForm.value);
 
     this.printInvalidElements();
     if (this.rentForm.valid) {

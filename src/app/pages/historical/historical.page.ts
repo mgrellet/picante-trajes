@@ -14,7 +14,7 @@ export class HistoricalPage implements OnInit {
 
 
   constructor(private service: RentService, private cd: ChangeDetectorRef) {
-    this.service.getRentList().subscribe(res => {
+    this.service.getRents().subscribe(res => {
       this.items = res;
       this.cd.detectChanges();
       console.log(this.items);
