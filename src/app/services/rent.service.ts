@@ -52,7 +52,7 @@ export class RentService {
     return deleteDoc(document);
   }
 
-  getWeeklyRent(rents: Rent[], startDate: Date, endDate: Date) {
+  getWeeklyRent(rents: Rent[], startDate: Date, endDate: Date): Rent[] {
     return rents.filter((item: Rent) => {
       const itemDate: Date = new Date(item.reservationDate);
       return itemDate >= startDate && itemDate <= endDate;

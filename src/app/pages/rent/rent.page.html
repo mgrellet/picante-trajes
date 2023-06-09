@@ -42,7 +42,11 @@
     </ion-item>
 
     <ion-item>
-      <ion-datetime label="Fecha de reserva" labelPlacement="floating" presentation="date" displayFormat="DD/MM/YYYY"
+      <ion-datetime label="Fecha de reserva"
+                    min="2023"
+                    max="2030-12-31"
+                    presentation="date"
+                    [preferWheel]="true"
                     formControlName="reservationDate">
         <span slot="title">Fecha de reserva</span>
       </ion-datetime>
@@ -88,7 +92,11 @@
 
     <br>
     <ion-item>
-      <ion-datetime label="Fecha de prueba" labelPlacement="floating" presentation="date" displayFormat="DD/MM/YYYY"
+      <ion-datetime label="Fecha de prueba"
+                    min="2023"
+                    max="2030-12-31"
+                    presentation="date"
+                    [preferWheel]="true"
                     formControlName="fittingDate">
         <span slot="title">Fecha de prueba</span>
       </ion-datetime>
@@ -96,7 +104,11 @@
 
     <br>
     <ion-item>
-      <ion-datetime label="Fecha de entrega" labelPlacement="floating" presentation="date" displayFormat="DD/MM/YYYY"
+      <ion-datetime label="Fecha de entrega"
+                    min="2023"
+                    max="2030-12-31"
+                    presentation="date"
+                    [preferWheel]="true"
                     formControlName="deliveryDate">
         <span slot="title">Fecha de entrega</span>
       </ion-datetime>
@@ -104,7 +116,11 @@
 
     <br>
     <ion-item>
-      <ion-datetime label="Fecha de devolucion" labelPlacement="floating" presentation="date" displayFormat="DD/MM/YYYY"
+      <ion-datetime label="Fecha de devolucion"
+                    min="2023"
+                    max="2030-12-31"
+                    presentation="date"
+                    [preferWheel]="true"
                     formControlName="returnDate">
         <span slot="title">Fecha de devolucion</span>
       </ion-datetime>

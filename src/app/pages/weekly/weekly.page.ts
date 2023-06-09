@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {RentService} from "../../services/rent.service";
+import {Rent} from "../../interfaces/rent";
 
 @Component({
   selector: 'app-weekly',
@@ -8,7 +9,10 @@ import {RentService} from "../../services/rent.service";
 })
 export class WeeklyPage implements OnInit {
 
-  constructor(private service: RentService) {
+  items: Rent[] = [];
+  filteredItems: Rent[]= [];
+
+  constructor(private service: RentService, private cd: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -25,10 +29,30 @@ export class WeeklyPage implements OnInit {
     nextWeekSaturday.setHours(0, 0, 0)
 
     this.service.getRents().subscribe(rents => {
-      console.log(this.service.getWeeklyRent(rents, nextSaturday, nextWeekSaturday));
+      this.items = this.service.getWeeklyRent(rents, nextSaturday, nextWeekSaturday);
+      this.cd.detectChanges();
+      this.filterItems();
     })
 
 
   }
+
+  // @ts-ignore
+  searchQuery: string;
+  // @ts-ignore
+  openDetails(id) {
+    console.log(id);
+  }
+
+  filterItems() {
+    if (!this.searchQuery) {
+      this.filteredItems = this.items; // If search query is empty, show all items
+    } else {
+      this.filteredItems = this.items.filter((item) =>
+        item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      ); // Filter items based on the search query
+    }
+  }
+
 
 }

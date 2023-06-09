@@ -10,7 +10,18 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">weekly</ion-title>
+      <ion-title size="large">Planilla</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-searchbar [(ngModel)]="searchQuery" (ionChange)="filterItems()"></ion-searchbar>
+
+
+  <ion-grid>
+    <ion-row *ngFor="let item of filteredItems" (click)="openDetails(item.id)">
+      <ion-col>{{ item.name }}</ion-col>
+      <ion-col>{{ item.dni }}</ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
+
