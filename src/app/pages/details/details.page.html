@@ -1,141 +1,34 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Marquez</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button text="Contacts" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" *ngIf="rent" [routerLink]="'/update-rent/' + rent.id">
+        Edit
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">rent</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" *ngIf="rent">
+  <ion-row>
+    <ion-col class="content-col">
 
-  <ion-item>
-    <ion-label position="stacked">Phone</ion-label>
-    <ion-input color="primary" readonly="true">{{rent.dni}}</ion-input>
-  </ion-item>
+      <ion-text color="dark">
+        <h2 class="user-name">{{rent.name}}</h2>
+      </ion-text>
 
-    <ion-item>
-      <ion-input label="Nombre" labelPlacement="floating" type="text" formControlName="name" name="name"
-                 required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Email" labelPlacement="floating" type="email" formControlName="email" name="email"
-                 required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Telefono" labelPlacement="floating" type="tel" formControlName="phone" name="phone"
-                 required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Domicilio" labelPlacement="floating" type="text" formControlName="address" name="address"
-                 required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-datetime label="Fecha de reserva"
-                    min="2023"
-                    max="2030-12-31"
-                    presentation="date"
-                    [preferWheel]="true"
-                    formControlName="reservationDate">
-        <span slot="title">Fecha de reserva</span>
-      </ion-datetime>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Un" labelPlacement="floating" type="text" formControlName="type" name="type"
-                 required></ion-input>
-    </ion-item>
-
-
-
-    <ion-item>
-      <ion-input label="Modelo" labelPlacement="floating" type="text" formControlName="model" name="type"
-                 required="true"></ion-input>
-    </ion-item>
-
-
-
-    <ion-item>
-      <ion-checkbox labelPlacement="start" formControlName="shirt">Camisa</ion-checkbox>
-    </ion-item>
-
-    <ion-item>
-      <ion-checkbox labelPlacement="start" formControlName="tie">Corbata</ion-checkbox>
-    </ion-item>
-
-    <ion-item>
-      <ion-checkbox labelPlacement="start" formControlName="vest">Chaleco</ion-checkbox>
-    </ion-item>
-
-    <br>
-    <ion-item>
-      <ion-datetime label="Fecha de prueba"
-                    min="2023"
-                    max="2030-12-31"
-                    presentation="date"
-                    [preferWheel]="true"
-                    formControlName="fittingDate">
-        <span slot="title">Fecha de prueba</span>
-      </ion-datetime>
-    </ion-item>
-
-    <br>
-    <ion-item>
-      <ion-datetime label="Fecha de entrega"
-                    min="2023"
-                    max="2030-12-31"
-                    presentation="date"
-                    [preferWheel]="true"
-                    formControlName="deliveryDate">
-        <span slot="title">Fecha de entrega</span>
-      </ion-datetime>
-    </ion-item>
-
-    <br>
-    <ion-item>
-      <ion-datetime label="Fecha de devolucion"
-                    min="2023"
-                    max="2030-12-31"
-                    presentation="date"
-                    [preferWheel]="true"
-                    formControlName="returnDate">
-        <span slot="title">Fecha de devolucion</span>
-      </ion-datetime>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Precio total" labelPlacement="floating" type="text" formControlName="price" name="type"
-                 required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Anticipo" labelPlacement="floating" type="text" formControlName="advancePayment" name="type"
-                 required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Saldo" labelPlacement="floating" type="text" formControlName="balance" name="type"
-                 required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input label="Notas" labelPlacement="floating" type="text" formControlName="notes" name="type"
-                 required></ion-input>
-    </ion-item>
-    <ion-button
-      expand="block"
-      type="submit"
-    >
-      Submit
-    </ion-button>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Phone</ion-label>
+          <ion-input color="primary" readonly="true">{{rent.phone}}</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input color="primary" readonly="true">{{rent.email}}</ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
 </ion-content>
-
