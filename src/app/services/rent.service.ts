@@ -23,7 +23,7 @@ export class RentService {
     );
   }
 
-  getRentById(id: string): Observable<Rent> {
+  getRentById(id: string | null): Observable<Rent> {
     const document = doc(this.firestore, `rental/${id}`);
     return docSnapshots(document)
     .pipe(

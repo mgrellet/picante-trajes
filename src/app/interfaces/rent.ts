@@ -1,6 +1,6 @@
 export interface Rent {
   //client info
-  id?: string;
+  id: string;
   dni: number
   name: string;
   email: string;
