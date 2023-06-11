@@ -13,20 +13,91 @@
 
 <ion-content [fullscreen]="true" *ngIf="rent">
   <ion-row>
-    <ion-col class="content-col">
+    <ion-col>
 
       <ion-text color="dark">
-        <h2 class="user-name">{{rent.name}}</h2>
+        <h2>{{rent.name}}</h2>
       </ion-text>
 
       <ion-list>
         <ion-item>
-          <ion-label position="stacked">Phone</ion-label>
-          <ion-input color="primary" readonly="true">{{rent.phone}}</ion-input>
+          <ion-input label="DNI" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.dni}}"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">Email</ion-label>
-          <ion-input color="primary" readonly="true">{{rent.email}}</ion-input>
+          <ion-input label="Nombre" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.name}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Telefono" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.phone}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Email" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.email}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Direccion" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.address}}"></ion-input>
+        </ion-item>
+
+        <ion-item-divider></ion-item-divider>
+
+        <ion-item>
+          <ion-input label="Fecha de reservacion" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.reservationDate | date: 'dd/mm/yyyy'}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Fecha de prueba" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.fittingDate | date: 'dd/mm/yyyy'}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Fecha de retiro" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.deliveryDate | date: 'dd/mm/yyyy'}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Fecha de entrega" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.returnDate | date: 'dd/mm/yyyy'}}"></ion-input>
+        </ion-item>
+
+        <ion-item-divider></ion-item-divider>
+
+        <ion-item>
+          <ion-input label="Tipo" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.type}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Talle" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.size}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Modelo" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.model}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Color" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.color}}"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <div [ngSwitch]="rent.shirt">
+            <ion-input *ngSwitchCase=true label="Camisa" labelPlacement="stacked"  color="primary" readonly="true" value="Si"></ion-input>
+            <ion-input *ngSwitchCase=false label="Camisa" labelPlacement="stacked"  color="primary" readonly="true" value="No"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item>
+          <div [ngSwitch]="rent.tie">
+            <ion-input *ngSwitchCase=true label="Corbata" labelPlacement="stacked"  color="primary" readonly="true" value="Si"></ion-input>
+            <ion-input *ngSwitchCase=false label="Corbata" labelPlacement="stacked" color="primary" readonly="true" value="No"></ion-input>
+          </div>
+        </ion-item>
+        <ion-item>
+          <div [ngSwitch]="rent.vest">
+            <ion-input *ngSwitchCase=true label="Chaleco" labelPlacement="stacked"  color="primary" readonly="true" value="Si"></ion-input>
+            <ion-input *ngSwitchCase=false label="Chaleco" labelPlacement="stacked"  color="primary" readonly="true" value="Si"></ion-input>
+          </div>
+        </ion-item>
+
+        <ion-item-divider></ion-item-divider>
+
+        <ion-item>
+          <ion-input label="Precio" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.price}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Ancitipo" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.advancePayment}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Saldo" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.balance}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Notas" labelPlacement="stacked" color="primary" readonly="true" value="{{rent.notes}}"></ion-input>
         </ion-item>
       </ion-list>
     </ion-col>
