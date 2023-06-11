@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {RentService} from "../../services/rent.service";
 import {Rent} from "../../interfaces/rent";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -12,8 +13,10 @@ import {Rent} from "../../interfaces/rent";
 export class RentPage implements OnInit {
 
   rentForm: FormGroup;
+  @ViewChild('createForm') createForm: FormGroupDirective;
 
-  constructor(private formBuilder: FormBuilder, private service: RentService) {
+
+  constructor(private formBuilder: FormBuilder, private service: RentService, private router: Router) {
     const defaultDate = new Date();
 
     this.rentForm = this.formBuilder.group({
@@ -41,7 +44,8 @@ export class RentPage implements OnInit {
 
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   suitSizes: number[] = [
     40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62
@@ -50,36 +54,19 @@ export class RentPage implements OnInit {
   suitColors: string[] = [
     'Gris', 'Gris topo', 'Negro', 'Azul francia', 'Azul oscuro', 'Blanco', 'Violeta'
   ]
-  submitForm() {
-    /*const rent: Rent = {
-      address: this.rentForm.get('address')?.value,
-      advancePayment: this.rentForm.get('advancePayment')?.value,
-      balance: this.rentForm.get('balance')?.value,
-      color: this.rentForm.get('color')?.value,
-      dni: this.rentForm.get('dni')?.value,
-      creationDate: new Date(),
-      deliveryDate: new Date(this.rentForm.get('deliveryDate')?.value),
-      email: this.rentForm.get('email')?.value,
-      fittingDate: new Date(this.rentForm.get('fittingDate')?.value),
-      model: this.rentForm.get('model')?.value,
-      name: this.rentForm.get('name')?.value,
-      phone: this.rentForm.get('phone')?.value,
-      price: this.rentForm.get('price')?.value,
-      reservationDate: new Date(this.rentForm.get('reservationDate')?.value),
-      returnDate: new Date(this.rentForm.get('returnDate')?.value),
-      shirt: this.rentForm.get('shirt')?.value,
-      size: this.rentForm.get('size')?.value,
-      tie: this.rentForm.get('tie')?.value,
-      type: this.rentForm.get('type')?.value,
-      vest: this.rentForm.get('vest')?.value,
-    }
-*/
-    this.service.createRent(this.rentForm.value);
 
-    this.printInvalidElements();
-    if (this.rentForm.valid) {
+  submitForm() {
+    // @ts-ignore
+    this.createForm.onSubmit(undefined);
+  }
+
+  createRent(value: any) {
+    let newRent: Rent = {...value};
+    this.service.createRent(newRent).then(r => {
       this.rentForm.reset();
-    }
+        this.router.navigate(['/historical']);
+      }
+    );
   }
 
   //Helper
@@ -92,5 +79,4 @@ export class RentPage implements OnInit {
       }
     });
   }
-
 }
