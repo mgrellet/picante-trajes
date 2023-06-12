@@ -1,20 +1,22 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {RentService} from "../../services/rent.service";
 import {Rent} from "../../interfaces/rent";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-historical',
   templateUrl: './historical.page.html',
   styleUrls: ['./historical.page.scss'],
 })
-export class HistoricalPage implements OnInit {
+export class HistoricalPage implements OnInit, OnDestroy {
 
   items: Rent[] = [];
-  filteredItems: Rent[]= [];
+  filteredItems: Rent[] = [];
+  sub: Subscription;
 
 
   constructor(private service: RentService, private cd: ChangeDetectorRef) {
-    this.service.getRents().subscribe(res => {
+    this.sub = this.service.getRents().subscribe(res => {
       this.items = res;
       this.cd.detectChanges();
       console.log(this.items);
@@ -27,6 +29,7 @@ export class HistoricalPage implements OnInit {
 
   // @ts-ignore
   searchQuery: string;
+
   // @ts-ignore
   openDetails(id) {
     console.log(id);
@@ -40,5 +43,9 @@ export class HistoricalPage implements OnInit {
         item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       ); // Filter items based on the search query
     }
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 }

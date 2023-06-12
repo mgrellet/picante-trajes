@@ -1,16 +1,18 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {RentService} from "../../services/rent.service";
 import {Rent} from "../../interfaces/rent";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-weekly',
   templateUrl: './weekly.page.html',
   styleUrls: ['./weekly.page.scss'],
 })
-export class WeeklyPage implements OnInit {
+export class WeeklyPage implements OnInit, OnDestroy {
 
   items: Rent[] = [];
-  filteredItems: Rent[]= [];
+  filteredItems: Rent[] = [];
+  sub: Subscription;
 
   constructor(private service: RentService, private cd: ChangeDetectorRef) {
   }
@@ -28,7 +30,7 @@ export class WeeklyPage implements OnInit {
     nextWeekSaturday.setDate(nextWeekSaturdayDay);
     nextWeekSaturday.setHours(0, 0, 0)
 
-    this.service.getRents().subscribe(rents => {
+    this.sub = this.service.getRents().subscribe(rents => {
       this.items = this.service.getWeeklyRent(rents, nextSaturday, nextWeekSaturday);
       this.cd.detectChanges();
       this.filterItems();
@@ -39,6 +41,7 @@ export class WeeklyPage implements OnInit {
 
   // @ts-ignore
   searchQuery: string;
+
   // @ts-ignore
   openDetails(id) {
     console.log(id);
@@ -54,5 +57,8 @@ export class WeeklyPage implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
 }

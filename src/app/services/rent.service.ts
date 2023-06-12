@@ -19,7 +19,7 @@ export class RentService {
     const contactsCollection = collection(this.firestore, 'rental');
     return collectionData(contactsCollection, {idField: 'id'})
     .pipe(
-      map(contacts => contacts as Rent[])
+      map(rents => rents as Rent[])
     );
   }
 
@@ -37,17 +37,18 @@ export class RentService {
 
   createRent(rent: Rent): Promise<void> {
     const document = doc(collection(this.firestore, 'rental'));
-    return setDoc(document, rent);
+    const id = doc(collection(this.firestore, 'rental')).id
+    return setDoc(document, rent).then( r=>console.log("rent id", id));
   }
 
 
-  updateContact(rent: Rent, identifier: string): Promise<void> {
-    const document = doc(this.firestore, 'rental', identifier);
+  updateRent(rent: Rent): Promise<void> {
+    const document = doc(this.firestore, 'rental', rent.id);
     const { id, ...data } = rent;
     return setDoc(document, data);
   }
 
-  deleteContact(id: string): Promise<void> {
+  deleteRent(id: string): Promise<void> {
     const document = doc(this.firestore, 'rental', id);
     return deleteDoc(document);
   }
