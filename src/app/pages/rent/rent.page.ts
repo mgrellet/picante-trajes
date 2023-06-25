@@ -62,11 +62,11 @@ export class RentPage implements OnInit {
 
   createRent(value: any) {
     let newRent: Rent = {...value};
-    this.service.createRent(newRent).then(r => {
+    this.service.createRent(newRent).then(result => {
       this.rentForm.reset();
-        this.router.navigate(['/historical']);
+        this.router.navigate(['/details/' + result]);
       }
-    );
+    ).catch( error => console.log(error));
   }
 
   //Helper
