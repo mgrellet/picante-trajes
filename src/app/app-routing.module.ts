@@ -31,8 +31,6 @@ const routes: Routes = [
     path: 'update-rent/:id',
     loadChildren: () => import('./pages/update-rent/update-rent.module').then( m => m.UpdateRentPageModule)
   },
-
-
 ];
 
 @NgModule({
