@@ -27,10 +27,9 @@ export class HelpersService {
 
   // Define the content for the PDF
    content = [
-    {text: 'Invoice', style: 'header'},
-    `Invoice Number: ${this.invoice.number}`,
-    `Date: ${this.invoice.date}`,
-    `Recipient: ${this.invoice.recipient}`,
+    {text: 'Recibo', style: 'header'},
+    `Señor(es).: ${this.invoice.recipient}`,
+    `Reserva para fecha: ${this.invoice.date}`,
     {text: 'Items', style: 'subheader'},
     {
       table: {
@@ -63,9 +62,6 @@ export class HelpersService {
   };
 
   generatePdf(rent: Rent) {
-    console.log("rent", rent);
-    console.log(this.platform.is('mobileweb'));
-
 
     // Generate the PDF
     // @ts-ignore
@@ -74,14 +70,14 @@ export class HelpersService {
     // Convert the PDF object to a data URL or Blob
     pdfDocGenerator.getBlob((pdfBlob) => {
       // Create a Blob URL from the Blob
-      const pdfFile = new File([pdfBlob], `invoice_${this.invoice.number}.pdf`, {type: 'application/pdf'});
+      const pdfFile = new File([pdfBlob], `recibo_${this.invoice.number}.pdf`, {type: 'application/pdf'});
 
       // Check if the Web Share API is supported
       if (navigator.share) {
         navigator
           .share({
             files: [pdfFile], // Pass the Blob URL to navigator.share
-            title: 'Invoice PDF',
+            title: 'Recibo PDF',
           })
           .then(() => {
             console.log('Shared successfully');
@@ -103,6 +99,6 @@ export class HelpersService {
 
   downloadPdf(rent: Rent) {
     // @ts-ignore
-    pdfMake.createPdf(this.docDefinition).download(`invoice_${this.invoice.number}.pdf`);
+    pdfMake.createPdf(this.docDefinition).download(`recibo_${this.invoice.number}.pdf`);
   }
 }

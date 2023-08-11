@@ -12,6 +12,8 @@ export class HistoricalPage implements OnInit, OnDestroy {
 
   items: Rent[] = [];
   filteredItems: Rent[] = [];
+  searchRent = '';
+  searchResults: Rent[] = [];
   sub: Subscription;
 
 
@@ -43,6 +45,17 @@ export class HistoricalPage implements OnInit, OnDestroy {
         item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       ); // Filter items based on the search query
     }
+  }
+
+  search(): void {
+    if (this.searchRent.trim() === '') {
+      return;
+    }
+    this.service.getRentBySearch(this.searchRent).subscribe( res => {
+      this.searchResults = res;
+      console.log("res", res);
+    });
+
   }
 
   ngOnDestroy(): void {
