@@ -4,7 +4,10 @@
       <ion-back-button text="Alquileres" defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <ion-button (click) = "generatePdf()">Recibo</ion-button>
+      <ion-button (click) = "downloadPdf()"><ion-icon name="cloud-download-outline"></ion-icon></ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click) = "generatePdf()"><ion-icon name="share-social-outline"></ion-icon></ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button color="primary" *ngIf="rent" [routerLink]="'/update-rent/' + rent.id">

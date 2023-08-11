@@ -48,4 +48,8 @@ export class DetailsPage implements OnInit, OnDestroy {
   generatePdf() {
     this.helperService.generatePdf(this.rent);
   }
+
+  downloadPdf() {
+    this.helperService.downloadPdf(this.rent);
+  }
 }
