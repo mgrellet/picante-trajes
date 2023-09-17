@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RentService} from "../../services/rent.service";
-import {Rent} from "../../interfaces/rent";
+import {Rent, UIRent} from "../../interfaces/rent";
 import {Subscription} from "rxjs";
 import * as pdfMake from "pdfmake/build/pdfmake";
 import {TCreatedPdf} from "pdfmake/build/pdfmake";
@@ -18,7 +18,7 @@ import {HelpersService} from "../../services/helpers.service";
 })
 export class DetailsPage implements OnInit, OnDestroy {
 
-  rent: Rent;
+  rent: UIRent;
   sub: Subscription;
   private pdfObj: TCreatedPdf;
 
@@ -32,8 +32,28 @@ export class DetailsPage implements OnInit, OnDestroy {
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     this.sub = this.service.getRentById(id).subscribe(res => {
-      this.rent = res;
+      this.rent = this.parseRent(res);
     })
+  }
+
+  private parseRent(res: Rent):UIRent {
+    return {
+      ...res,
+      reservationDate: this.convertNumberToDate(res.reservationDate),
+      fittingDate: this.convertNumberToDate(res.fittingDate),
+      deliveryDate: this.convertNumberToDate(res.deliveryDate),
+      returnDate: this.convertNumberToDate(res.deliveryDate)
+    };
+  }
+
+  private convertNumberToDate(dateNumber: number): Date {
+    console.log("date number", dateNumber)
+    const dateString = dateNumber.toString();
+    const year = parseInt(dateString.slice(0, 4), 10);
+    const month = parseInt(dateString.slice(4, 6), 10) - 1; // Subtract 1 to make it 0-based
+    const day = parseInt(dateString.slice(6, 8), 10);
+    console.log("la date", new Date(year, month, day))
+    return new Date(year, month, day);
   }
 
   ngOnDestroy(): void {
@@ -46,10 +66,13 @@ export class DetailsPage implements OnInit, OnDestroy {
 
 
   generatePdf() {
-    this.helperService.generatePdf(this.rent);
+    //this.helperService.generatePdf(this.rent);
   }
 
   downloadPdf() {
-    this.helperService.downloadPdf(this.rent);
+    //this.helperService.downloadPdf(this.rent);
   }
+
+
+
 }

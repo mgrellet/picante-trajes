@@ -61,12 +61,29 @@ export class RentPage implements OnInit {
   }
 
   createRent(value: any) {
-    let newRent: Rent = {...value};
+    let rent: Rent = {...value};
+    let newRent: Rent = {
+      ...rent,
+      reservationDate: this.convertDateToNumber(value.reservationDate),
+      fittingDate: this.convertDateToNumber(value.fittingDate),
+      deliveryDate: this.convertDateToNumber(value.deliveryDate),
+      returnDate: this.convertDateToNumber(value.deliveryDate)
+    }
+    console.log("new rent", newRent);
     this.service.createRent(newRent).then(result => {
       this.rentForm.reset();
         this.router.navigate(['/details/' + result]);
       }
     ).catch( error => console.log(error));
+  }
+
+  convertDateToNumber(date: Date): number {
+    const newDate = new Date(date);
+    console.log("date to format", newDate);
+    const year = newDate.getUTCFullYear();
+    const month = String(newDate.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(newDate.getUTCDate()).padStart(2, '0');
+    return parseInt(`${year}${month}${day}`);
   }
 
   //Helper
