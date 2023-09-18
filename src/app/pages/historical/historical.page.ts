@@ -21,7 +21,6 @@ export class HistoricalPage implements OnInit, OnDestroy {
     this.sub = this.service.getRents().subscribe(res => {
       this.items = res;
       this.cd.detectChanges();
-      console.log(this.items);
       this.filterItems();
     });
   }
@@ -53,7 +52,6 @@ export class HistoricalPage implements OnInit, OnDestroy {
     }
     this.service.getRentBySearch(this.searchRent).subscribe( res => {
       this.searchResults = res;
-      console.log("res", res);
     });
 
   }

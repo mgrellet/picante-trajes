@@ -36,24 +36,14 @@ export class DetailsPage implements OnInit, OnDestroy {
     })
   }
 
-  private parseRent(res: Rent):UIRent {
+  private parseRent(res: Rent): UIRent {
     return {
       ...res,
-      reservationDate: this.convertNumberToDate(res.reservationDate),
-      fittingDate: this.convertNumberToDate(res.fittingDate),
-      deliveryDate: this.convertNumberToDate(res.deliveryDate),
-      returnDate: this.convertNumberToDate(res.deliveryDate)
+      reservationDate: this.helperService.convertNumberToStringDate(res.reservationDate),
+      fittingDate: this.helperService.convertNumberToStringDate(res.fittingDate),
+      deliveryDate: this.helperService.convertNumberToStringDate(res.deliveryDate),
+      returnDate: this.helperService.convertNumberToStringDate(res.deliveryDate)
     };
-  }
-
-  private convertNumberToDate(dateNumber: number): Date {
-    console.log("date number", dateNumber)
-    const dateString = dateNumber.toString();
-    const year = parseInt(dateString.slice(0, 4), 10);
-    const month = parseInt(dateString.slice(4, 6), 10) - 1; // Subtract 1 to make it 0-based
-    const day = parseInt(dateString.slice(6, 8), 10);
-    console.log("la date", new Date(year, month, day))
-    return new Date(year, month, day);
   }
 
   ngOnDestroy(): void {

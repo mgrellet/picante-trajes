@@ -101,4 +101,33 @@ export class HelpersService {
     // @ts-ignore
     pdfMake.createPdf(this.docDefinition).download(`recibo_${this.invoice.number}.pdf`);
   }
+
+
+  /**
+   * Converts a number to a string date.
+   *
+   * @param {number} dateNumber - The number to convert.
+   * @returns {string} The string representation of the date.
+   */
+  convertNumberToStringDate(dateNumber: number): string {
+    const dateString = dateNumber.toString();
+    const year = dateString.slice(0, 4);
+    const month = dateString.slice(4, 6);
+    const day = dateString.slice(6, 8);
+    return `${year}-${month}-${day}`;
+  }
+
+  /**
+   * Converts a string date to a number.
+   *
+   * @param {string} date - The string date to be converted.
+   * @return {number} The converted number.
+   */
+  convertStringDateToNumber(date: string): number {
+    const newDate = date.replaceAll("-", "");
+    const year = newDate.slice(0, 4);
+    const month = newDate.slice(4, 6);
+    const day = newDate.slice(6, 8);
+    return parseInt(`${year}${month}${day}`);
+  }
 }

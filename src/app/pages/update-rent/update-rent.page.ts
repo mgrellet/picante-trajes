@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
-import {Rent} from "../../interfaces/rent";
+import {Rent, UIRent} from "../../interfaces/rent";
 import {RentService} from "../../services/rent.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import {HelpersService} from "../../services/helpers.service";
 
 @Component({
   selector: 'app-update-rent',
@@ -13,27 +14,35 @@ import {Subscription} from "rxjs";
 export class UpdateRentPage implements OnInit, OnDestroy {
   updateRentForm: FormGroup;
   formIsEdited: boolean = false;
-  rent: Rent;
+  rent: UIRent;
   id: string | null;
 
   @ViewChild('updateForm') updateForm: FormGroupDirective;
 
   sub1: Subscription;
   sub2: Subscription;
-  constructor(private service: RentService, private activatedRoute: ActivatedRoute, private router: Router) {
+
+  constructor(private service: RentService,
+              private helpersService: HelpersService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
-
 
     this.sub1 = this.service.getRentById(this.id)
       .subscribe(rent => {
         if (!rent) {
           this.router.navigate(['/home']);
         } else {
-          this.rent = rent;
-          console.log("update", this.rent)
+          this.rent = {
+            ...rent,
+            reservationDate: this.helpersService.convertNumberToStringDate(rent.reservationDate),
+            deliveryDate:this.helpersService.convertNumberToStringDate(rent.deliveryDate),
+            fittingDate:this.helpersService.convertNumberToStringDate(rent.fittingDate),
+            returnDate: this.helpersService.convertNumberToStringDate(rent.returnDate)
+          };
 
           this.updateRentForm = new FormGroup({
             name: new FormControl(this.rent.name, Validators.required),
@@ -57,7 +66,6 @@ export class UpdateRentPage implements OnInit, OnDestroy {
             returnDate: new FormControl(this.rent.returnDate, Validators.required),
           });
 
-          console.log("form", this.updateRentForm);
           this.sub2 = this.updateRentForm.valueChanges.subscribe(values => {
             this.formIsEdited = true;
           })
@@ -80,16 +88,23 @@ export class UpdateRentPage implements OnInit, OnDestroy {
   }
 
   updateRent(value: any) {
-    let updatedRent: Rent = { id: this.rent.id, ...value };
-
+    const { reservationDate, fittingDate, deliveryDate, returnDate } = value;
+    const updatedRent: Rent = {
+      ...value,
+      id: this.rent.id,
+      reservationDate: this.helpersService.convertStringDateToNumber(reservationDate),
+      returnDate: this.helpersService.convertStringDateToNumber(returnDate),
+      fittingDate: this.helpersService.convertStringDateToNumber(fittingDate),
+      deliveryDate: this.helpersService.convertStringDateToNumber(deliveryDate)
+    };
     this.service.updateRent(updatedRent)
       .then(
-        res => this.router.navigate(['/home'])
+        res => this.router.navigate(['/details/'+ this.rent.id])
       );
   }
 
   deleteRent(id: string) {
-    this.service.deleteRent(id).then(r =>{
+    this.service.deleteRent(id).then(r => {
       this.router.navigate(['/home']);
     })
   }

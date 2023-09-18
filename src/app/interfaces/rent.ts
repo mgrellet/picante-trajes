@@ -24,7 +24,7 @@ export interface Rent {
   tie: boolean;
   vest: boolean;
   //metadata
-  creationDate: Date;
+  creationDate?: Date;
 }
 
 export interface UIRent {
@@ -36,10 +36,10 @@ export interface UIRent {
   phone: number;
   address: string;
   //reservation info
-  reservationDate: Date; // Date to use as filter
-  deliveryDate: Date;
-  returnDate: Date;
-  fittingDate: Date;
+  reservationDate: any; // Date to use as filter
+  deliveryDate: any;
+  returnDate: any;
+  fittingDate: any;
   price: number;
   advancePayment: number;
   balance: number;
